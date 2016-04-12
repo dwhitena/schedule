@@ -1,4 +1,4 @@
-# Slides for various talks
+# Daniel Whitenack - Talks, workshops, etc.
 
 | Title  | Event | Date | Slides | Video/Audio |
 |---|---|---|---|---|
