@@ -1,5 +1,5 @@
 Data Science/Engineering with Go
-Can (or should) Go become the "Go to" language for data science?
+Can (or should) Go be the "Go to" language for data science?
 
 Daniel Whitenack
 Data Scientist at Telnyx, Mentor with Thinkful
@@ -12,7 +12,7 @@ What is data science (in practice)?
 
 What challenges are facing the data science community?
 
-How Go helps solve at least some of the challenges.
+How Go helps solve these challenges.
 
 Examples.
 
@@ -32,9 +32,17 @@ Examples.
 
 The process of transforming collections of _data_ into actionable insights.
 
-- Getting
-- Parsing
-- Analyzing
-- Reporting
+Sometimes that includes "deep learning," etc., but it almost always includes:
 
+- Creative problem solving
+- ETL
+- Arithemetic 
+- Building a robust data-driven service
+
+* What challenges are facing the data science community?
+
+* What challenges facing the DS community?
+
+.image images/sadness.jpg
+.caption via [[https://twitter.com/josh_wills][Josh Wills]], Head of Data Engineering, Slack
 
