@@ -1,0 +1,40 @@
+Data Science/Engineering with Go
+Can (or should) Go become the "Go to" language for data science?
+
+Daniel Whitenack
+Data Scientist at Telnyx, Mentor with Thinkful
+http://datadan.io/
+@dwhitena
+
+* Outline
+
+What is data science (in practice)?
+
+What challenges are facing the data science community?
+
+How Go helps solve at least some of the challenges.
+
+Examples.
+
+* What is data science?
+
+* What is #datascience?
+
+.image images/alphago.jpg
+.caption _AlphaGo_ defeats world champion Go player, image via [[https://goo.gl/ZuveiF][The Guardian]]
+
+* What is data science (really)?
+
+.image images/time.jpg
+.caption via [[http://goo.gl/RhuhFC][Forbes]]
+
+* What is data science (really)?
+
+The process of transforming collections of _data_ into actionable insights.
+
+- Getting
+- Parsing
+- Analyzing
+- Reporting
+
+
