@@ -1,4 +1,4 @@
-Data Science/Engineering with Go
+Data Science with Go
 Can (or should) Go be the "Go to" language for data science?
 
 Daniel Whitenack
@@ -12,7 +12,7 @@ What is data science (in practice)?
 
 What challenges are facing the data science community?
 
-How Go helps solve these challenges.
+How Go helps overcome these challenges.
 
 Examples.
 
@@ -43,6 +43,55 @@ Sometimes that includes "deep learning," etc., but it almost always includes:
 
 * What challenges facing the DS community?
 
-.image images/sadness.jpg
+.image images/sadness.png
 .caption via [[https://twitter.com/josh_wills][Josh Wills]], Head of Data Engineering, Slack
+
+* What challenges are facing the DS community?
+
+Conflicting mindsets contributing to the infinite loop of sadness:
+
+- Data Scientists - Problem solving, arithemetic, nifty modeling, ...
+- Data Engineers - Scaling, pipelines, ...
+- Devops - Reliability, monitoring, automation, ...
+- Business - Money.
+
+* What challenges are facing the DS community?
+
+As a result of the infinite loop of sadness:
+
+- Data scientists work in isolation on their laptops, and their nifty models are never utilized.
+
+- Data Engineers build scalable pipelines that move data, but the data is not interesting or useable by data scientists.
+
+- Devops is afraid to release pipelines and/or models into production and lives in a constant state of frustration with "data people."
+
+- Business people don't see any actual value coming from all this data work.
+
+* How Go helps overcome these challenges
+
+* How Go will NOT overcome these challenges
+
+by morphing into R/Python
+
+by integrating with every other ML/DS framework
+
+by abandoning our "Go Proverbs"
+
+- "Don't communicate by sharing memory, share memory by communicating"
+- "A little copying is better than a little dependency"
+- "The bigger the interface, the weaker the abstraction"
+- ...
+
+* How Go can help overcome these challenges
+
+By doing data science/engineering with a unique Go mindset:
+
+- unifying data scientists and data engineers around simple, efficient, and scalable components of data pipelines.
+
+- unifying data scientists and devops around easily deployable and maintainable Go services.
+
+- unifying data scientists and business people around cheap, efficient data-driven services that are valuable because they go to production.
+
+* Examples
+
 
