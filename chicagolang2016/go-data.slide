@@ -16,6 +16,8 @@ How Go helps overcome these challenges.
 
 Examples.
 
+Get Involved / Contribute.
+
 * What is data science?
 
 * What is #datascience?
@@ -75,7 +77,7 @@ by morphing into R/Python
 
 by integrating with every other ML/DS framework
 
-by abandoning our "Go Proverbs"
+by abandoning our "[[Go Proverbs][https://go-proverbs.github.io/]]"
 
 - "Don't communicate by sharing memory, share memory by communicating"
 - "A little copying is better than a little dependency"
@@ -86,12 +88,173 @@ by abandoning our "Go Proverbs"
 
 By doing data science/engineering with a unique Go mindset:
 
-- unifying data scientists and data engineers around simple, efficient, and scalable components of data pipelines.
+- unifying data scientists and data engineers around simple, efficient, and scalable components/consumers of data pipelines.
 
 - unifying data scientists and devops around easily deployable and maintainable Go services.
 
-- unifying data scientists and business people around cheap, efficient data-driven services that are valuable because they go to production.
+- unifying data scientists and business people around cheap, efficient data-driven services that are valuable because they Go to production.
 
 * Examples
 
+* Example 1: Unifying data scientists and data engineers
 
+* Example 1: Unifying data scientists and data engineers 
+
+You may have seen this:
+
+.image images/million.jpg
+.caption via [[http://marcio.io/2015/07/handling-1-million-requests-per-minute-with-golang/][Marcio Castilho]], Principal Architect, Malwarebytes
+
+* Example 1: Unifying data scientists and engineers
+
+"A little copying is better than a little dependency."
+
+We can do data science in the same way (and make data engineers happy):
+
+	func (d *Dispatcher) dispatch() {
+		for {
+			select {
+			case job := <-JobQueue:
+				
+				go func(job Job) {
+					
+					jobChannel := <-d.WorkerPool
+					jobChannel <- job
+				
+				}(job)
+			}
+		}
+	}
+	
+* Example 1: Unifying data scientists and data engineers
+
+	func (w Worker) Start() {
+
+		rt := RethinkMsg{}
+
+		go func() {
+			for {
+				w.WorkerPool <- w.JobChannel
+				select {
+				case job := <-w.JobChannel:
+					switch {
+					case "event" == job.Payload.Type:
+						_ := EventSuggest(job.Payload, rt)
+					case "availability" == job.Payload.Type:
+						_ := AvailabilitySuggest(job.Payload, rt)
+					}
+				case <-w.quit:
+					return
+				}
+			}
+		}()
+	}
+
+* Example 1: Unifying data scientists and data engineers
+
+	func EventSuggest(pl Payload, rt RethinkMsger) error {
+
+		// nifty ML stuff
+		// ...
+
+	}
+
+	func AvailabilitySuggest(pl Payload, rt RethinkMsger) error {
+
+		// nifty ML stuff
+		// ...
+
+	}
+
+* Example 2: Unifying data scientists and devops
+
+* Example 2: Unifying data scientists and devops
+
+For deployment, start with this for python DS (from [[https://github.com/dataquestio/ds-containers][here]]):
+
+	FROM dataquestio/ubuntu-base
+	ENV TERM=xterm
+	ENV LANG en_US.UTF-8
+	RUN apt-get update -y && apt-get install build-essential -y
+	ADD apt-packages.txt /tmp/apt-packages.txt
+	RUN xargs -a /tmp/apt-packages.txt apt-get install -y
+	RUN pip install virtualenv
+	RUN /usr/local/bin/virtualenv /opt/ds --distribute
+	ADD /requirements/ /tmp/requirements
+	ADD python2/requirements.txt /tmp/requirements/additional-reqs.txt
+	RUN /opt/ds/bin/pip install -r /tmp/requirements/pre-requirements.txt
+	RUN /opt/ds/bin/pip install -r /tmp/requirements/requirements.txt
+	RUN /opt/ds/bin/pip install -r /tmp/requirements/additional-reqs.txt
+	RUN useradd --create-home --home-dir /home/ds --shell /bin/bash ds
+	RUN chown -R ds /opt/ds
+	RUN adduser ds sudo
+	ADD run_ipython.sh /home/ds
+
+Continued on the next slide...
+
+* Example 2: Unifying data scientists and devops
+	
+	RUN chmod +x /home/ds/run_ipython.sh
+	RUN chown ds /home/ds/run_ipython.sh
+	ADD .bashrc.template /home/ds/.bashrc
+	EXPOSE 8888
+	RUN usermod -a -G sudo ds
+	RUN echo "ds ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+	USER ds
+	RUN mkdir -p /home/ds/notebooks
+	ENV HOME=/home/ds
+	ENV SHELL=/bin/bash
+	ENV USER=ds
+	VOLUME /home/ds/notebooks
+	WORKDIR /home/ds/notebooks
+	CMD ["/home/ds/run_ipython.sh"]
+
+Wow...
+Let's rethink this.
+
+* Example 2: Unifying data scientists and devops
+
+With Go:
+
+	FROM scratch
+	ADD myservice /myservice
+	EXPOSE 8080
+	CMD ["/myservice"]
+
+* Example 2: Unifying data scientists and devops
+
+More generally:
+
+"Clear is better than clever."
+
+"Don't just check errors, handle them gracefully."
+
+"Design the architecture, name the components, document the details."
+
+"Documentation is for users."
+
+"Don't panic."
+
+* Example 3: Unifying data scientists and business people
+
+* Example 3: Unifying data scientists and business people
+
+(see Examples 2 and 3)
+
+* Get Involved / Contribute
+
+* Get Involved / Contribute
+
+[[https://github.com/gophergala2016/gophernotes][gophernotes]] - please try it out, submit pull requests, and/or contact me!
+
+.image images/smaller.gif
+
+* Get Involved / Contribute
+
+- gonum
+
+- gophernotes
+
+- Go ML packages 
+
+- glow

@@ -1,0 +1,121 @@
+Developing Dockerized Data Apps
+
+Daniel Whitenack
+Data Scientist at Telnyx, Freelancer, Mentor with Thinkful
+http://datadan.io/
+@dwhitena
+
+* Outline
+
+1. What is Docker?
+
+2. Challenges facing the data science community.
+
+3. How Docker helps us overcome these challenges (with examples).
+
+4. Examples.
+
+5. Further Resources.
+
+* What is Docker?
+
+* What is Docker:
+
+Docker is an open source project that:
+
+- wraps a piece of software
+
+- in a complete filesystem
+
+- that contains everything it needs to run (i.e., anything you can install on a server)
+
+* What is Docker:
+
+Isn't that a virtual machine?  Not quite.
+
+.image images/vm.jpg
+.caption image from [[https://www.docker.com/what-docker][Docker]]
+
+* What is Docker:
+
+A virtual machine includes:
+
+- the application
+
+- necessary binaries and libraries
+
+- an entire guest operating system
+
+- 10's of GB
+
+A Docker "container" includes:
+
+- the application
+
+- its dependencies
+
+- 10's of MB
+
+* What is Docker:
+
+A Docker container:
+
+- runs as an isolated process in userspace on the host OS
+
+- shares the kernel with other containers
+
+Thus, Docker containers have similar isolation and allocation benefits as virtual machines but are much more portable and efficient.
+
+* What is Docker:
+
+Docker jargon:
+
+- *docker* *engine* - builds and runs your Docker containers
+
+- *image* - the basis of containers
+
+- *container* - an instance of an image
+
+- *docker* *compose* - a tool for defining and running multi-container Docker applications
+
+- *docker* *swarm,* *kubernetes,* *mesos,* *...* - orchestration tools that help start containers on appropriate hosts and connect them together.
+
+- *registry* - a repository for images (note Docker provides a hosted "registry" called Docker Hub)
+
+* What is Docker:
+
+Cue example...
+
+* Challenges facing the data science community
+
+* Challenges facing the data science community:
+
+"There was only one problem — all of my work was done in my local machine in R. People appreciate my efforts but *they* *don’t* *know* *how* *to* *consume* *my* *model* *because* *it* *was* *not* *'productionized'* and the infrastructure cannot talk to my local model. Hard lesson learned!" -Robert Chang, data scientist at Twitter
+
+"Data engineers are often frustrated that data scientists produce *inefficient* *and* *poorly* *written* *code,* *have* *little* *consideration* *for* *the* *maintenance* *cost* *of* *productionizing* *ideas,* demand unrealistic features that skew implementation effort for little gain… The list goes on, but you get the point." -Jeff Magnusson, director of data platform at Stitchfix
+
+* Challenges facing the data science community:
+
+.image images/sadness.png
+.caption via [[https://twitter.com/josh_wills][Josh Wills]], Head of Data Engineering, Slack
+
+* Challenges facing the data science community:
+
+Conflicting mindsets contributing to the infinite loop of sadness:
+
+- Data Scientists - Problem solving, arithemetic, nifty modeling, ...
+- Data Engineers - Scaling, pipelines, ...
+- Devops - Reliability, monitoring, automation, ...
+- Business - Money.
+
+* Challenges facing the data science community:
+
+As a result of the infinite loop of sadness:
+
+- Data scientists work in isolation on their laptops, and their nifty models are never utilized.
+
+- Data Engineers build scalable pipelines that move data, but the data is not interesting or useable by data scientists.
+
+- Devops is afraid to release pipelines and/or models into production and lives in a constant state of frustration with "data people."
+
+- Business people don't see any actual value coming from all this data work.
