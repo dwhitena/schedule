@@ -1,4 +1,5 @@
 Developing Dockerized Data Apps
+Datapalooza Austin 2016, #RockYourData, @dwhitena
 
 Daniel Whitenack
 Data Scientist at Telnyx, Freelancer, Mentor with Thinkful
@@ -7,19 +8,21 @@ http://datadan.io/
 
 * Outline
 
-1. What is Docker?
+1. Docker intro.
 
 2. Challenges facing the data science community.
 
-3. How Docker helps us overcome these challenges (with examples).
+3. How Docker helps us overcome these challenges.
 
-4. Examples.
+4. Examples (including building a dockerized data app start to finish).
 
 5. Further Resources.
 
-* What is Docker?
+(slides are here: [[https://github.com/dwhitena/slides/tree/master/datapalooza2016][https://github.com/dwhitena/slides]])
 
-* What is Docker:
+* Docker Intro
+
+* Docker Intro:
 
 Docker is an open source project that:
 
@@ -29,14 +32,14 @@ Docker is an open source project that:
 
 - that contains everything it needs to run (i.e., anything you can install on a server)
 
-* What is Docker:
+* Docker Intro:
 
 Isn't that a virtual machine?  Not quite.
 
 .image images/vm.jpg
 .caption image from [[https://www.docker.com/what-docker][Docker]]
 
-* What is Docker:
+* Docker Intro:
 
 A virtual machine includes:
 
@@ -56,7 +59,7 @@ A Docker "container" includes:
 
 - 10's of MB
 
-* What is Docker:
+* Docker Intro:
 
 A Docker container:
 
@@ -66,7 +69,7 @@ A Docker container:
 
 Thus, Docker containers have similar isolation and allocation benefits as virtual machines but are much more portable and efficient.
 
-* What is Docker:
+* Docker Intro:
 
 Docker jargon:
 
@@ -82,17 +85,27 @@ Docker jargon:
 
 - *registry* - a repository for images (note Docker provides a hosted "registry" called Docker Hub)
 
-* What is Docker:
+* Docker Intro:
 
 Cue example...
+
+* Docker Intro:
+
+Installation:
+
+- [[https://docs.docker.com/engine/installation/][general instructions]]
+
+- [[https://docs.docker.com/engine/installation/linux/ubuntulinux/][Ubuntu]]
+
+- [[https://docs.docker.com/engine/installation/mac/][OSX]]
 
 * Challenges facing the data science community
 
 * Challenges facing the data science community:
 
-"There was only one problem — all of my work was done in my local machine in R. People appreciate my efforts but *they* *don’t* *know* *how* *to* *consume* *my* *model* *because* *it* *was* *not* *'productionized'* and the infrastructure cannot talk to my local model. Hard lesson learned!" -Robert Chang, data scientist at Twitter
+"There was only one problem — all of my work was done in my local machine in R. People appreciate my efforts but *they* *don’t* *know* *how* *to* *consume* *my* *model* *because* *it* *was* *not* *'productionized'* and the infrastructure cannot talk to my local model. Hard lesson learned!" _-Robert_ _Chang,_ _data_ _scientist_ _at_ _Twitter_
 
-"Data engineers are often frustrated that data scientists produce *inefficient* *and* *poorly* *written* *code,* *have* *little* *consideration* *for* *the* *maintenance* *cost* *of* *productionizing* *ideas,* demand unrealistic features that skew implementation effort for little gain… The list goes on, but you get the point." -Jeff Magnusson, director of data platform at Stitchfix
+"Data engineers are often frustrated that data scientists produce *inefficient* *and* *poorly* *written* *code,* *have* *little* *consideration* *for* *the* *maintenance* *cost* *of* *productionizing* *ideas,* demand unrealistic features that skew implementation effort for little gain… The list goes on, but you get the point." _-Jeff_ _Magnusson,_ _director_ _of_ _data_ _platform_ _at_ _Stitchfix_
 
 * Challenges facing the data science community:
 
@@ -119,3 +132,79 @@ As a result of the infinite loop of sadness:
 - Devops is afraid to release pipelines and/or models into production and lives in a constant state of frustration with "data people."
 
 - Business people don't see any actual value coming from all this data work.
+
+* How Docker helps us overcome these challenges
+
+* How Docker helps us overcome these challenges:
+
+1. By easing the pain of deployment and dependencies
+
+2. By enabling data versioning
+
+3. By powering innovative, valuable, and efficient data science
+
+* How Docker helps: Deployment and dependencies 
+
+Instead of saying to Devops, "I need a box with these versions of these dependencies installed" (which I assure you will only contribute the the infinite loop of sadness)...
+
+.image images/python.png  
+
+* How Docker helps: Deployment and dependencies
+
+say "run this container"
+
+	docker run registry:5000/myservice:latest
+
+* How Docker helps: Data versioning
+
+"This is the real value of containers in data science: the ability to capture an experiment's state (data, code, results, package versions, parameters, etc) at a point in time, *making* *it* *possible* *to* *reproduce* *an* *experiment* *at* *any* *stage* in the research process." _-Daniel_ _Chalef,_ _Domino_ _Data_ _Lab_
+
+.image images/pachyderm.png
+
+* How Docker helps: Innovation, value, and efficiency
+
+By virtue of the portability and efficiency of docker containers, they enable the construction of truly innovative, reliable, and efficient data science pipelines.
+
+.image images/bernoulli.png
+
+* Examples 
+
+* Example 1: A simple dockerized data science app
+
+* Example 1: A simple dockerized data science app
+
+We are going to use:
+
+- python
+
+- scikit-learn
+
+- flask-restful
+
+To develop a dockerized data science app that makes predictions based on the famous [[https://en.wikipedia.org/wiki/Iris_flower_data_set][Iris Data Set]].
+
+.image images/iris.png
+
+* Example 1: A simple dockerized data science app
+
+Let's start with the machine learning piece:
+
+	from sklearn import datasets
+	from sklearn.neighbors import KNeighborsClassifier
+	
+	def predict(inputFeatures):
+		
+		iris = datasets.load_iris()
+		knn = KNeighborsClassifier()
+		knn.fit(iris.data, iris.target)
+		
+		predictInt = knn.predict(inputFeatures)
+		if predictInt[0] == 0:
+			predictString = 'setosa'
+		elif predictInt[0] == 1:
+			predictString = 'versicolor'
+		elif predictInt[0] == 2:
+			predictString = 'virginica'
+		else:
+			predictString = 'null'
+		return predictString

@@ -1,5 +1,5 @@
-Data Science with Go
-Can (or should) Go be the "Go to" language for data science?
+Data Science/Engineering with Go
+ChicaGolang 2016, #GoDataScience, @dwhitena 
 
 Daniel Whitenack
 Data Scientist at Telnyx, Mentor with Thinkful
@@ -39,7 +39,7 @@ Sometimes that includes "deep learning," etc., but it almost always includes:
 - Creative problem solving
 - ETL
 - Arithemetic 
-- Building a robust data-driven service
+- Building a robust data-driven service... _maybe_
 
 * What challenges are facing the data science community?
 
@@ -73,11 +73,11 @@ As a result of the infinite loop of sadness:
 
 * How Go will NOT overcome these challenges
 
-by morphing into R/Python
+by morphing into R/Python,
 
-by integrating with every other ML/DS framework
+by integrating with every other ML/DS or "big data" framework, or
 
-by abandoning our "[[Go Proverbs][https://go-proverbs.github.io/]]"
+by abandoning our [[https://go-proverbs.github.io/][Go Proverbs]]
 
 - "Don't communicate by sharing memory, share memory by communicating"
 - "A little copying is better than a little dependency"
@@ -245,16 +245,26 @@ More generally:
 
 * Get Involved / Contribute
 
+.image images/goeco.jpg
+
+* Get Involved / Contribute
+
 [[https://github.com/gophergala2016/gophernotes][gophernotes]] - please try it out, submit pull requests, and/or contact me!
 
 .image images/smaller.gif
 
 * Get Involved / Contribute
 
-- gonum
+[[https://github.com/gonum][gonum]] - numerical computing, statistics, visualization
 
-- gophernotes
+[[https://github.com/sjwhitworth/golearn][GoLearn]] - general purpose ML
 
-- Go ML packages 
+[[https://github.com/chrislusf/glow][glow]] - distributed computation system (map reduce)
 
-- glow
+[[http://pachyderm.io/][pachyderm]] - distributed, containerized data pipelines
+
+[[https://github.com/hybridgroup/gobot/][GoBot]] - Go for sensors, IoT
+
+[[https://github.com/kniren/gota][gota]] - DataFrames and data wrangling
+
+(not to mention all the database, messaging, etc. things written in Go, such as BoltDB, InfluxDB, etc.)
