@@ -45,7 +45,10 @@ func main() {
 	fmt.Printf("Regression:\n%s\n", r)
 
 	// Generate the data for the second plot.
-	xysPredicted := prepareRegPlotData(r, counts)
+	xysPredicted, err := prepareRegPlotData(r, counts)
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Create and save the second plot.
 	if err = makeRegPlots(xys, xysPredicted); err != nil {
@@ -55,7 +58,10 @@ func main() {
 	// Make a prediction for the number of Go repositories that will
 	// be created on the first day of GopherCon (July 11, 2016, or 1287 days
 	// from the start of our data set).
-	gcValue, _ := r.Predict([]float64{1287.0})
+	gcValue, err := r.Predict([]float64{1287.0})
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	// Display the results.
 	fmt.Printf("Day of GopherCon Prediction: %.2f\n", gcValue)
@@ -137,18 +143,21 @@ func performRegression(counts [][]int) *regression.Regression {
 }
 
 // prepareRegPlotData prepares predicted point for plotting.
-func prepareRegPlotData(r *regression.Regression, counts [][]int) plotter.XYs {
+func prepareRegPlotData(r *regression.Regression, counts [][]int) (plotter.XYs, error) {
 	pts := make(plotter.XYs, len(counts))
 	var i int
 
 	for _, count := range counts {
 		pts[i].X = float64(count[0])
-		value, _ := r.Predict([]float64{float64(count[0])})
+		value, err := r.Predict([]float64{float64(count[0])})
+		if err != nil {
+			return pts, errors.Wrap(err, "Could not calculate predicted value")
+		}
 		pts[i].Y = value
 		i++
 	}
 
-	return pts
+	return pts, nil
 }
 
 // makeRegPlots makes the second plot including the raw input data and the
