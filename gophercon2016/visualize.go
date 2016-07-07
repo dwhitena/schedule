@@ -93,7 +93,6 @@ func prepareStarData(filename string) (plotter.Values, plotter.Values, error) {
 		if value != 0.0 {
 			vl = append(vl, math.Log(value))
 		}
-		//vl[i] = math.Log(value)
 	}
 
 	return v, vl, nil
