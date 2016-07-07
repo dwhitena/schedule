@@ -151,7 +151,7 @@ func prepareCountData(filename string) ([][]int, error) {
 
 	// sort the values
 	var keys []int
-	for k, _ := range countMap {
+	for k := range countMap {
 		keys = append(keys, k)
 	}
 	sort.Ints(keys)

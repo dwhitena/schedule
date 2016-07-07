@@ -10,10 +10,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-const (
-	REMAINING_THRESHOLD = 1
-)
-
 func main() {
 
 	// start time
@@ -82,15 +78,15 @@ func clientQuery(gh *github.Client, query string) error {
 		for _, repo := range result.Repositories {
 
 			name := *repo.FullName
-			updated_at := repo.UpdatedAt.String()
-			created_at := repo.CreatedAt.String()
+			updatedAt := repo.UpdatedAt.String()
+			createdAt := repo.CreatedAt.String()
 			forks := *repo.ForksCount
 			issues := *repo.OpenIssuesCount
 			stars := *repo.StargazersCount
 			size := *repo.Size
 
 			fmt.Printf("%s,%s,%s,%d,%d,%d,%d\n",
-				name, updated_at, created_at, forks, issues, stars, size)
+				name, updatedAt, createdAt, forks, issues, stars, size)
 
 		}
 
@@ -105,7 +101,7 @@ func clientQuery(gh *github.Client, query string) error {
 
 // Wait waits to make sure we return the full github response
 func Wait(response *github.Response) {
-	if response != nil && response.Remaining <= REMAINING_THRESHOLD {
+	if response != nil && response.Remaining <= 1 {
 		gap := time.Duration(response.Reset.Local().Unix() - time.Now().Unix())
 		sleep := gap * time.Second
 		if sleep < 0 {
