@@ -93,7 +93,10 @@ func prepareCountData(filename string) ([][]int, error) {
 	startTime := time.Date(2013, time.January, 1, 0, 0, 0, 0, time.UTC)
 	layout := "2006-01-02 15:04:05"
 	for _, each := range rawCSVdata {
-		t, _ := time.Parse(layout, each[2][0:19])
+		t, err := time.Parse(layout, each[2][0:19])
+		if err != nil {
+			return [][]int{}, errors.Wrap(err, "Could not parse timestamps")
+		}
 		interval := int(t.Sub(startTime).Hours() / 24.0)
 		countMap[interval]++
 	}

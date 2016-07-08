@@ -18,7 +18,7 @@ import (
 func main() {
 
 	// Capture the date from which we will start scraping github data.
-	t1 := time.Date(2016, time.July, 1, 0, 0, 0, 0, time.UTC)
+	t1 := time.Date(2013, time.January, 1, 0, 0, 0, 0, time.UTC)
 
 	// Pull the github data from t1 to now.
 	if err := queryFromStartTime(t1); err != nil {
