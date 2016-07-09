@@ -45,7 +45,7 @@ func main() {
 	fmt.Printf("Regression:\n%s\n", r)
 
 	// Generate the data for the second plot.
-	xysPredicted, err := prepareRegPlotData(r, counts)
+	xysPredicted, err := prepareRegPlotData(r)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -169,7 +169,7 @@ func performRegression(counts [][]int) *regression.Regression {
 }
 
 // prepareRegPlotData prepares predicted point for plotting.
-func prepareRegPlotData(r *regression.Regression, counts [][]int) (plotter.XYs, error) {
+func prepareRegPlotData(r *regression.Regression) (plotter.XYs, error) {
 	pts := make(plotter.XYs, 1652)
 	i := 1
 
