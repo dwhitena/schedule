@@ -55,16 +55,22 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Make a prediction for the number of Go repositories that will
-	// be created on the first day of GopherCon (July 11, 2016, or 1287 days
-	// from the start of our data set).
-	gcValue, err := r.Predict([]float64{1287.0})
+	// Make predictions for the number of Go repositories that will
+	// be created on July 11, 2016 (1287 days from the start of our
+	// data set) and a year later.
+	gcValue1, err := r.Predict([]float64{1287.0})
+	if err != nil {
+		log.Fatal(err)
+	}
+	gcValue2, err := r.Predict([]float64{1652.0})
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Display the results.
-	fmt.Printf("Day of GopherCon Prediction: %d\n", int(gcValue))
+	fmt.Printf("GopherCon 2016 Prediction: %d\n", int(gcValue1))
+	fmt.Printf("GopherCon 2016 Prediction: %d\n", int(gcValue2))
+
 }
 
 // prepareCountData prepares the raw time series data for plotting.
@@ -164,16 +170,16 @@ func performRegression(counts [][]int) *regression.Regression {
 
 // prepareRegPlotData prepares predicted point for plotting.
 func prepareRegPlotData(r *regression.Regression, counts [][]int) (plotter.XYs, error) {
-	pts := make(plotter.XYs, len(counts))
-	var i int
+	pts := make(plotter.XYs, 1652)
+	i := 1
 
-	for _, count := range counts {
-		pts[i].X = float64(count[0])
-		value, err := r.Predict([]float64{float64(count[0])})
+	for i <= 1652 {
+		pts[i-1].X = float64(i)
+		value, err := r.Predict([]float64{float64(i)})
 		if err != nil {
 			return pts, errors.Wrap(err, "Could not calculate predicted value")
 		}
-		pts[i].Y = value
+		pts[i-1].Y = value
 		i++
 	}
 
