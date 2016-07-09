@@ -8,10 +8,10 @@
 package main
 
 import (
+	"bytes"
 	"encoding/csv"
 	"fmt"
 	"log"
-	"os"
 	"sort"
 	"time"
 
@@ -19,6 +19,7 @@ import (
 	"github.com/gonum/plot/plotter"
 	"github.com/gonum/plot/plotutil"
 	"github.com/gonum/plot/vg"
+	"github.com/pachyderm/pachyderm/src/client"
 	"github.com/pkg/errors"
 	"github.com/sajari/regression"
 )
@@ -41,7 +42,6 @@ func main() {
 
 	// Perform a regression analysis and print the results for inspection.
 	r := performRegression(counts)
-	fmt.Printf("Regression formula:\n%v\n", r.Formula)
 	fmt.Printf("Regression:\n%s\n", r)
 
 	// Generate the data for the second plot.
@@ -64,7 +64,7 @@ func main() {
 	}
 
 	// Display the results.
-	fmt.Printf("Day of GopherCon Prediction: %.2f\n", gcValue)
+	fmt.Printf("Day of GopherCon Prediction: %d\n", int(gcValue))
 }
 
 // prepareCountData prepares the raw time series data for plotting.
@@ -74,14 +74,13 @@ func prepareCountData(filename string) ([][]int, error) {
 	countMap := make(map[int]int)
 
 	// Open the raw data file.
-	csvfile, err := os.Open("repodata.csv")
+	csvBuffer, err := getFileFromPach("repodata.csv", "master", "godata")
 	if err != nil {
 		return [][]int{}, errors.Wrap(err, "Could not open CSV file")
 	}
-	defer csvfile.Close()
 
 	// Parse the csv data in repodata.csv.
-	reader := csv.NewReader(csvfile)
+	reader := csv.NewReader(bytes.NewReader(csvBuffer.Bytes()))
 	reader.FieldsPerRecord = -1
 	rawCSVdata, err := reader.ReadAll()
 	if err != nil {
@@ -115,6 +114,24 @@ func prepareCountData(filename string) ([][]int, error) {
 	return sortedCounts, nil
 }
 
+// getFileFromPach gets the repodata.csv file pachyderm data versioning
+func getFileFromPach(filename, branch, repoName string) (bytes.Buffer, error) {
+
+	// Open a connection to pachyderm running on localhost.
+	c, err := client.NewFromAddress("localhost:30650")
+	if err != nil {
+		return bytes.Buffer{}, errors.Wrap(err, "Could not connect to Pachyderm")
+	}
+
+	// Read the latest commit of filename to the given repoName.
+	var buffer bytes.Buffer
+	if err := c.GetFile(repoName, branch, filename, 0, 0, "", nil, &buffer); err != nil {
+		return buffer, errors.Wrap(err, "Could not retrieve pachyderm file")
+	}
+
+	return buffer, nil
+}
+
 // preparePlotData prepares the raw input data for plotting.
 func preparePlotData(counts [][]int) plotter.XYs {
 	pts := make(plotter.XYs, len(counts))
@@ -131,7 +148,7 @@ func preparePlotData(counts [][]int) plotter.XYs {
 
 // preformRegression performs a linear regression of create repo counts vs. day.
 func performRegression(counts [][]int) *regression.Regression {
-	r := new(regression.Regression)
+	var r regression.Regression
 	r.SetObserved("count of created Github repos")
 	r.SetVar(0, "days since Jan 1 2013")
 
@@ -142,7 +159,7 @@ func performRegression(counts [][]int) *regression.Regression {
 	}
 
 	r.Run()
-	return r
+	return &r
 }
 
 // prepareRegPlotData prepares predicted point for plotting.

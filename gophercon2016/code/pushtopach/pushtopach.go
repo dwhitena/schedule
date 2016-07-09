@@ -20,17 +20,17 @@ import (
 func main() {
 
 	// Push the file "repodata.csv" into pachyderm's PFS file system.
-	if err := pushToPach("repodata.csv"); err != nil {
+	if err := pushToPach("../getrepos/repodata.csv", "repodata.csv"); err != nil {
 		log.Fatal(err)
 	}
 }
 
 // pushToPach reads in the given file, create a repo in PFS for the file, opens
 // a commit, pushes the file in the commit, and finishes the commit.
-func pushToPach(filename string) error {
+func pushToPach(path, filename string) error {
 
 	// Read the contents of the given file.
-	csvfile, err := ioutil.ReadFile(filename)
+	csvfile, err := ioutil.ReadFile(path)
 	if err != nil {
 		errors.Wrap(err, "Could not read input file")
 	}

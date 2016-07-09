@@ -8,15 +8,16 @@
 package main
 
 import (
+	"bytes"
 	"encoding/csv"
 	"log"
 	"math"
-	"os"
 	"strconv"
 
 	"github.com/gonum/plot"
 	"github.com/gonum/plot/plotter"
 	"github.com/gonum/plot/vg"
+	"github.com/pachyderm/pachyderm/src/client"
 	"github.com/pkg/errors"
 )
 
@@ -38,14 +39,13 @@ func main() {
 func prepareStarData(filename string) (plotter.Values, plotter.Values, error) {
 
 	// Open the raw CSV file.
-	csvfile, err := os.Open("repodata.csv")
+	csvBuffer, err := getFileFromPach("repodata.csv", "master", "godata")
 	if err != nil {
-		return plotter.Values{}, plotter.Values{}, errors.Wrap(err, "Could not open CSV file")
+		return plotter.Values{}, plotter.Values{}, errors.Wrap(err, "Could not get repodata.csv")
 	}
-	defer csvfile.Close()
 
 	// Extract the CSV data from the file.
-	reader := csv.NewReader(csvfile)
+	reader := csv.NewReader(bytes.NewReader(csvBuffer.Bytes()))
 	reader.FieldsPerRecord = -1
 	rawCSVdata, err := reader.ReadAll()
 	if err != nil {
@@ -69,6 +69,24 @@ func prepareStarData(filename string) (plotter.Values, plotter.Values, error) {
 	}
 
 	return v, vl, nil
+}
+
+// getFileFromPach gets the repodata.csv file pachyderm data versioning
+func getFileFromPach(filename, branch, repoName string) (bytes.Buffer, error) {
+
+	// Open a connection to pachyderm running on localhost.
+	c, err := client.NewFromAddress("localhost:30650")
+	if err != nil {
+		return bytes.Buffer{}, errors.Wrap(err, "Could not connect to Pachyderm")
+	}
+
+	// Read the latest commit of filename to the given repoName.
+	var buffer bytes.Buffer
+	if err := c.GetFile(repoName, branch, filename, 0, 0, "", nil, &buffer); err != nil {
+		return buffer, errors.Wrap(err, "Could not retrieve pachyderm file")
+	}
+
+	return buffer, nil
 }
 
 // makePlots creates and saves both histogram plots.
