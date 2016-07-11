@@ -23,8 +23,8 @@ import (
 
 func main() {
 
-	// Prepare the input data for plotting.
-	v, vl, err := prepareStarData("repodata.csv")
+	// Prepare the dataset in pachyderm for plotting.
+	v, vl, err := prepareStarData("repodata")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,28 +35,28 @@ func main() {
 	}
 }
 
-// prepareStartData translates the input CSV data into values for gonum/plot
-func prepareStarData(filename string) (plotter.Values, plotter.Values, error) {
+// prepareStartData translates the previously stored data set into values for gonum/plot.
+func prepareStarData(dataSet string) (plotter.Values, plotter.Values, error) {
 
-	// Open the raw CSV file.
-	csvBuffer, err := getFileFromPach("repodata.csv", "master", "godata")
+	// Get the data set we stored in pachyderm.
+	data, err := getDataSet(dataSet, "master", "godata")
 	if err != nil {
-		return plotter.Values{}, plotter.Values{}, errors.Wrap(err, "Could not get repodata.csv")
+		return plotter.Values{}, plotter.Values{}, errors.Wrap(err, "Could not get data from pachyderm")
 	}
 
-	// Extract the CSV data from the file.
-	reader := csv.NewReader(bytes.NewReader(csvBuffer.Bytes()))
+	// Extract the records from the data.
+	reader := csv.NewReader(bytes.NewReader(data.Bytes()))
 	reader.FieldsPerRecord = -1
-	rawCSVdata, err := reader.ReadAll()
+	records, err := reader.ReadAll()
 	if err != nil {
-		return plotter.Values{}, plotter.Values{}, errors.Wrap(err, "Could not read in raw CSV data")
+		return plotter.Values{}, plotter.Values{}, errors.Wrap(err, "Could not read in data records.")
 	}
 
-	v := make(plotter.Values, len(rawCSVdata))
+	v := make(plotter.Values, len(records))
 	var vl plotter.Values
 
-	// Loop over each row adding the data into the plotting values.
-	for i, each := range rawCSVdata {
+	// Loop over each record adding the star field into the plotting values.
+	for i, each := range records {
 		value, err := strconv.ParseFloat(each[5], 64)
 		if err != nil {
 			return plotter.Values{}, plotter.Values{}, errors.Wrap(err, "Could not convert value to float")
@@ -71,8 +71,8 @@ func prepareStarData(filename string) (plotter.Values, plotter.Values, error) {
 	return v, vl, nil
 }
 
-// getFileFromPach gets the repodata.csv file pachyderm data versioning
-func getFileFromPach(filename, branch, repoName string) (bytes.Buffer, error) {
+// getDataSet gets a previously stored dataset from pachyderm data versioning.
+func getDataSet(dataSet, branch, repoName string) (bytes.Buffer, error) {
 
 	// Open a connection to pachyderm running on localhost.
 	c, err := client.NewFromAddress("localhost:30650")
@@ -82,7 +82,7 @@ func getFileFromPach(filename, branch, repoName string) (bytes.Buffer, error) {
 
 	// Read the latest commit of filename to the given repoName.
 	var buffer bytes.Buffer
-	if err := c.GetFile(repoName, branch, filename, 0, 0, "", nil, &buffer); err != nil {
+	if err := c.GetFile(repoName, branch, dataSet, 0, 0, "", nil, &buffer); err != nil {
 		return buffer, errors.Wrap(err, "Could not retrieve pachyderm file")
 	}
 

@@ -20,14 +20,14 @@ import (
 func main() {
 
 	// Push the file "repodata.csv" into pachyderm's PFS file system.
-	if err := pushToPach("../getrepos/repodata.csv", "repodata.csv"); err != nil {
+	if err := pushToPach("../getrepos/repodata.csv", "repodata", "godata"); err != nil {
 		log.Fatal(err)
 	}
 }
 
 // pushToPach reads in the given file, create a repo in PFS for the file, opens
 // a commit, pushes the file in the commit, and finishes the commit.
-func pushToPach(path, filename string) error {
+func pushToPach(path, dataName, repoName string) error {
 
 	// Read the contents of the given file.
 	csvfile, err := ioutil.ReadFile(path)
@@ -41,24 +41,24 @@ func pushToPach(path, filename string) error {
 		errors.Wrap(err, "Could not connect to Pachyderm")
 	}
 
-	// Create a repo called "godata".
-	if err := c.CreateRepo("godata"); err != nil {
+	// Create a repo.
+	if err := c.CreateRepo(repoName); err != nil {
 		errors.Wrap(err, "Could not create pachyderm repo")
 	}
 
-	// Start a commit on the "master" branch of the godata repo.
-	if _, err = c.StartCommit("godata", "", "master"); err != nil {
+	// Start a commit on the "master" branch of the repo.
+	if _, err = c.StartCommit(repoName, "", "master"); err != nil {
 		errors.Wrap(err, "Could not start pachyderm repo commit")
 	}
 
-	// Put the given file into the godata repo after the commit is started.
+	// Put the given file into the repo after the commit is started.
 	r := bytes.NewReader(csvfile)
-	if _, err := c.PutFile("godata", "master", filename, r); err != nil {
+	if _, err := c.PutFile(repoName, "master", dataName, r); err != nil {
 		errors.Wrap(err, "Could not put file into pachyderm repo")
 	}
 
 	// Finish the commit.
-	if err := c.FinishCommit("godata", "master"); err != nil {
+	if err := c.FinishCommit(repoName, "master"); err != nil {
 		errors.Wrap(err, "Could not finish Pachyderm commit")
 	}
 

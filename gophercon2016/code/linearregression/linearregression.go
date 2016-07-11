@@ -27,30 +27,26 @@ import (
 func main() {
 
 	// Aggregate the counts of created repos per day over all days,
-	// in the input data set "repodata.csv."
-	counts, err := prepareCountData("repodata.csv")
+	// in the dataset previously committed to pachyderm.
+	counts, err := prepareCountData("repodata")
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Create and save the first plot showing the time series of
-	// the raw input data.
+	// Prepare the "observed" count data for plotting.
 	xys := preparePlotData(counts)
-	if err = makePlots(xys); err != nil {
-		log.Fatal(err)
-	}
 
 	// Perform a regression analysis and print the results for inspection.
 	r := performRegression(counts)
 	fmt.Printf("Regression:\n%s\n", r)
 
-	// Generate the data for the second plot.
+	// Generate the data for the "observed" and "predicted" plot.
 	xysPredicted, err := prepareRegPlotData(r)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	// Create and save the second plot.
+	// Create and save the plot.
 	if err = makeRegPlots(xys, xysPredicted); err != nil {
 		log.Fatal(err)
 	}
@@ -67,37 +63,36 @@ func main() {
 		log.Fatal(err)
 	}
 
-	// Display the results.
+	// Display the GopherCon prediction results.
 	fmt.Printf("GopherCon 2016 Prediction: %d\n", int(gcValue1))
-	fmt.Printf("GopherCon 2016 Prediction: %d\n", int(gcValue2))
-
+	fmt.Printf("GopherCon 2017 Prediction: %d\n", int(gcValue2))
 }
 
 // prepareCountData prepares the raw time series data for plotting.
-func prepareCountData(filename string) ([][]int, error) {
+func prepareCountData(dataSet string) ([][]int, error) {
 
 	// Store the daily counts of created repos.
 	countMap := make(map[int]int)
 
-	// Open the raw data file.
-	csvBuffer, err := getFileFromPach("repodata.csv", "master", "godata")
+	// Get the data set we stored in pachyderm.
+	data, err := getDataSet(dataSet, "master", "godata")
 	if err != nil {
-		return [][]int{}, errors.Wrap(err, "Could not open CSV file")
+		return [][]int{}, errors.Wrap(err, "Could not get data from pachyderm")
 	}
 
-	// Parse the csv data in repodata.csv.
-	reader := csv.NewReader(bytes.NewReader(csvBuffer.Bytes()))
+	// Extract the records from the data.
+	reader := csv.NewReader(bytes.NewReader(data.Bytes()))
 	reader.FieldsPerRecord = -1
-	rawCSVdata, err := reader.ReadAll()
+	records, err := reader.ReadAll()
 	if err != nil {
-		return [][]int{}, errors.Wrap(err, "Could not read in raw CSV data")
+		return [][]int{}, errors.Wrap(err, "Could not read in data records.")
 	}
 
 	// Create a map of daily created repos where the keys are the days and
 	// the values are the counts of created repos on that day.
 	startTime := time.Date(2013, time.January, 1, 0, 0, 0, 0, time.UTC)
 	layout := "2006-01-02 15:04:05"
-	for _, each := range rawCSVdata {
+	for _, each := range records {
 		t, err := time.Parse(layout, each[2][0:19])
 		if err != nil {
 			return [][]int{}, errors.Wrap(err, "Could not parse timestamps")
@@ -120,8 +115,8 @@ func prepareCountData(filename string) ([][]int, error) {
 	return sortedCounts, nil
 }
 
-// getFileFromPach gets the repodata.csv file pachyderm data versioning
-func getFileFromPach(filename, branch, repoName string) (bytes.Buffer, error) {
+// getDataSet gets a previously stored dataset from pachyderm data versioning.
+func getDataSet(dataSet, branch, repoName string) (bytes.Buffer, error) {
 
 	// Open a connection to pachyderm running on localhost.
 	c, err := client.NewFromAddress("localhost:30650")
@@ -131,7 +126,7 @@ func getFileFromPach(filename, branch, repoName string) (bytes.Buffer, error) {
 
 	// Read the latest commit of filename to the given repoName.
 	var buffer bytes.Buffer
-	if err := c.GetFile(repoName, branch, filename, 0, 0, "", nil, &buffer); err != nil {
+	if err := c.GetFile(repoName, branch, dataSet, 0, 0, "", nil, &buffer); err != nil {
 		return buffer, errors.Wrap(err, "Could not retrieve pachyderm file")
 	}
 
@@ -208,33 +203,6 @@ func makeRegPlots(xys1, xys2 plotter.XYs) error {
 
 	// Save the plot.
 	if err := p.Save(7*vg.Inch, 4*vg.Inch, "regression.png"); err != nil {
-		return errors.Wrap(err, "Could not output plot")
-	}
-
-	return nil
-}
-
-// makePlots creates and saves the first of our plots showing the raw input data.
-func makePlots(xys plotter.XYs) error {
-
-	// Create a new plot.
-	p, err := plot.New()
-	if err != nil {
-		return errors.Wrap(err, "Could not create plot object")
-	}
-
-	// Label the new plot.
-	p.Title.Text = "Daily Counts of Go Repos Created"
-	p.X.Label.Text = "Days from Jan. 1, 2013"
-	p.Y.Label.Text = "Count"
-
-	// Add the prepared points to the plot.
-	if err = plotutil.AddLinePoints(p, "Counts", xys); err != nil {
-		return errors.Wrap(err, "Could not add lines to plot")
-	}
-
-	// Save the plot to a PNG file.
-	if err := p.Save(7*vg.Inch, 4*vg.Inch, "countseries.png"); err != nil {
 		return errors.Wrap(err, "Could not output plot")
 	}
 
