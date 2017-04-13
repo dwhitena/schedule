@@ -7,7 +7,6 @@
 | Ultimate Data Workshop | [GopherCon](https://gophercon.com/) | 12-15 July 2017 |
 | Sustainable Machine Learning Workflows | [UofSF Analytics Seminar Series](https://www.meetup.com/USF-Seminar-Series-in-Analytics/) | 23 June 2017 |
 | TBD | [Metis SF Data Science Meetup](https://www.meetup.com/Metis-San-Francisco-Data-Science/) | 19 June 2017 |
-| Ultimate Data Workshop | [Public Class, NYC](https://www.ardanlabs.com/ultimate-data) | 10-11 June 2017 |
 | Fully-Reproducible ML Deployment with Spark, Pachyderm and MLeap | [Spark Summit](https://spark-summit.org/) | 5-6 June 2017 |
 | Putting the science back in data science | [Chicago Data Science Conference](http://www.datascienceassociations.org/) | 20 May 2017 |
 | Scalable, distributed deep learning with Python and Pachyderm | [PyCon](https://us.pycon.org/2017/) | 17 May 2017 |
