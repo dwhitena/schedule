@@ -13,7 +13,7 @@
 
 | Title  | Event | Date | Slides | Video/Audio |
 |---|---|---|---|---|
-| Ultimate Data Workshop | [GopherCon](https://gophercon.com/) | 12-15 July 2017 | | [here](https://github.com/ardanlabs/gotraining/tree/master/topics/courses/data) | - |
+| Ultimate Data Workshop | [GopherCon](https://gophercon.com/) | 12-15 July 2017 | [here](https://github.com/ardanlabs/gotraining/tree/master/topics/courses/data) | - |
 | Sustainable Machine Learning Workflows | [UofSF Analytics Seminar Series](https://www.meetup.com/USF-Seminar-Series-in-Analytics/events/238276378/) | 23 June 2017 | [here](https://docs.google.com/presentation/d/1jsRAoGlgWBu2ws7ES49NI4447b2TB0rwexqhH21LQak/edit?usp=sharing) | - |
 | Integrating Julia in real-world, distributed pipelines | [JuliaCon](http://juliacon.org/2018/) | 20-24 June 2017 | [here](https://docs.google.com/presentation/d/1g5pZ06z0Mxa1BNUl57pKnsi1Wk8kjT-yb6o7JvJ1wAA/edit?usp=sharing) | [here](https://youtu.be/UIRuGUNXCt4) |
 | Putting the Science back in Data Science | [Metis SF Data Science Meetup](https://www.meetup.com/Metis-San-Francisco-Data-Science/) | 19 June 2017 | [here](https://docs.google.com/presentation/d/1Rgyi8H9aLF5hZH0ZPH2jf6qpP2WJIzv7OsRn8zsfHzM/edit?usp=sharing) | - |
