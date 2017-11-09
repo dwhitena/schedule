@@ -4,23 +4,27 @@
 
 | Title  | Event | Date | 
 |---|---|---|
-| Ultimate Data Workshop | [GopherCon](https://gophercon.com/) | 12-15 July 2017 |
-| Sustainable Machine Learning Workflows | [UofSF Analytics Seminar Series](http://juliacon.org/2017/) | 20-24 June 2017 |
-| Integrating Julia in real-world, distributed pipelines | [JuliaCon](https://www.meetup.com/USF-Seminar-Series-in-Analytics/) | 23 June 2017 |
-| Putting the Science back in Data Science | [Metis SF Data Science Meetup](https://www.meetup.com/Metis-San-Francisco-Data-Science/) | 19 June 2017 |
-| Fully-Reproducible ML Deployment with Spark, Pachyderm and MLeap | [Spark Summit](https://spark-summit.org/) | 5-6 June 2017 |
-| Putting the science back in data science | [Chicago Data Science Conference](http://www.datascienceassociations.org/) | 20 May 2017 |
-| Scalable, distributed deep learning with Python and Pachyderm | [PyCon](https://us.pycon.org/2017/) | 17 May 2017 |
-| Scalable, distributed machine learning with Pachyderm | [Chicago ML Meetup](https://www.meetup.com/Chicago-ML/events/238617745/) | 11 May 2017 |
-| Putting the science back in data science | [ODSC East](https://odsc.com/training/portfolio/putting-science-back-data-science) | 3-5 May 2017 |
-| Ultimate Data Workshop | [WWG SF](https://www.eventbrite.com/e/ultimate-data-san-francisco-april-2017-tickets-31485334483) | 27-28 April 2017 |
-| Reproducible data processing with Go | [Capital Go](http://capitalgolang.com/) | 24-25 April 2017 |
-| Enabling reproducibility at scale with R and Pachyderm | [R Conference NYC](http://www.rstats.nyc/) | 21-22 April 2017 | 
+| ML with Go, and ML on Kubernetes workshops | [Applied ML Days](https://www.appliedmldays.org/) | 27-30 January, 2018 |
+| Streaming data analysis with Go | [OReilly Online Training](https://www.safaribooksonline.com/live-training/courses/streaming-data-analysis-with-go/0636920106210/) | 18-19 December, 2017 |
+| Building GPU accelerated workflows with Tensorflow and Kubernetes | [KubeCon](http://events.linuxfoundation.org/events/kubecon-and-cloudnativecon-north-america) | 6-8 December, 2017 |
+| Streaming data analysis with Go | [OReilly Online Training](https://www.safaribooksonline.com/live-training/courses/streaming-data-analysis-with-go/0636920106210/) | 29 November - 1 December, 2017 |
 
 ## Previous 
 
 | Title  | Event | Date | Slides | Video/Audio |
 |---|---|---|---|---|
+| Ultimate Data Workshop | [GopherCon](https://gophercon.com/) | 12-15 July 2017 | | [here](https://github.com/ardanlabs/gotraining/tree/master/topics/courses/data) | - |
+| Sustainable Machine Learning Workflows | [UofSF Analytics Seminar Series](https://www.meetup.com/USF-Seminar-Series-in-Analytics/events/238276378/) | 23 June 2017 | [here](https://docs.google.com/presentation/d/1jsRAoGlgWBu2ws7ES49NI4447b2TB0rwexqhH21LQak/edit?usp=sharing) | - |
+| Integrating Julia in real-world, distributed pipelines | [JuliaCon](http://juliacon.org/2018/) | 20-24 June 2017 | [here](https://docs.google.com/presentation/d/1g5pZ06z0Mxa1BNUl57pKnsi1Wk8kjT-yb6o7JvJ1wAA/edit?usp=sharing) | [here](https://youtu.be/UIRuGUNXCt4) |
+| Putting the Science back in Data Science | [Metis SF Data Science Meetup](https://www.meetup.com/Metis-San-Francisco-Data-Science/) | 19 June 2017 | [here](https://docs.google.com/presentation/d/1Rgyi8H9aLF5hZH0ZPH2jf6qpP2WJIzv7OsRn8zsfHzM/edit?usp=sharing) | - |
+| Fully-Reproducible ML Deployment with Spark, Pachyderm and MLeap | [Spark Summit](https://spark-summit.org/) | 5-6 June 2017 | [here](https://docs.google.com/presentation/d/1qoZbLDm6B78fZEzSi8AdVLjUBT6ujL9FMNp8Z80GlQk/edit?usp=sharing) | [here](https://youtu.be/TmTYenyOU0s) |
+| Putting the science back in data science | [Chicago Data Science Conference](http://www.datascienceassociations.org/) | 20 May 2017 | - | - |
+| Scalable, distributed deep learning with Python and Pachyderm | [PyCon](https://us.pycon.org/2017/) | 17 May 2017 | [here](https://docs.google.com/presentation/d/1y25fdJB4qdKhtOgJ9Y1IH0UQ65CRCvltLlMFLi-tYoE/edit?usp=sharing) | - |
+| Scalable, distributed machine learning with Pachyderm | [Chicago ML Meetup](https://www.meetup.com/Chicago-ML/events/238617745/) | 11 May 2017 | [here](https://docs.google.com/presentation/d/1fTlOLH9C5zoZP2lQ8FdfPYlWpQ4ZAj_qWtYF3-xJJys/edit?usp=sharing) | - |
+| Putting the science back in data science | [ODSC East](https://odsc.com/training/portfolio/putting-science-back-data-science) | 3-5 May 2017 | [here](https://docs.google.com/presentation/d/1bcjwxdlq1-SwUosVCVQsGj2EZgJa8YsHw4TjBwXzG7A/edit?usp=sharing) | - |
+| Ultimate Data Workshop | [WWG SF](https://www.eventbrite.com/e/ultimate-data-san-francisco-april-2017-tickets-31485334483) | 27-28 April 2017 | [here](https://github.com/ardanlabs/gotraining/tree/master/topics/courses/data) | - |
+| Reproducible data processing with Go | [Capital Go](http://capitalgolang.com/) | 24-25 April 2017 | [here](https://docs.google.com/presentation/d/16oR_JDVzkVNxBaYra46NcdoTNeI3uIRGWsEkHUTZR50/edit?usp=sharing) | [here](https://youtu.be/Ozs-KT6gcjE) |
+| Enabling reproducibility at scale with R and Pachyderm | [R Conference NYC](http://www.rstats.nyc/) | 21-22 April 2017 | [here](https://docs.google.com/presentation/d/1kkoi-hkxhhplcu44DAHy6X3ucSTmzClTlFr65PP4lyI/edit?usp=sharing) | [here](https://youtu.be/rfKRdya1whE) | 
 | Taking over the (data) world with Go and Pachyderm  | [Chicago Ultimate Go](http://www.meetup.com/Chicago-Ultimate-Golang/) | 21 March 2017 | [here](https://docs.google.com/presentation/d/1WLd1J5V321AwJHRt9HFKdnXkzqoKQf7-qCODQjmDg2Q/edit?usp=sharing) | - |
 | Guest Interview  | [Data Latam Podcast](http://www.datalatam.com/26/) | 5 March 2017 | - | [here](http://www.datalatam.com/26/) |
 | Go + Data Science  | [GopherCon India](http://www.gophercon.in/) | 24-25 February 2017 | [here](https://docs.google.com/presentation/d/1DVldH3Znmu7X6gqEZI_ujSJ7wKukmnXPbA4gZn1bB_s/edit?usp=sharing) | - |
