@@ -13,6 +13,10 @@
 
 | Title  | Event | Date | Slides | Video/Audio |
 |---|---|---|---|---|
+| Super ML Bros | [GDG Devfest Capital Region](https://devfestcr2017.bitbucket.io/) | 28 October 2017 | [here](https://docs.google.com/presentation/d/1UXVizBuyoqX0_TmMSmqYsDZK9dyBEEYEXOGkt1-s_FQ/edit?usp=sharing) | - |
+| Reproducible Data Science in the Cloud | [RPI](http://www.rpi.edu/) | 26 October 2017 | [here](https://docs.google.com/presentation/d/1dUt9tz2gGAVl6OXoRcvix83REPGpmfuiDowyHql762M/edit?usp=sharing) | - |
+| Honey I Shrunk the Neural Net! | [All Things Open](https://allthingsopen.org/) | 23 October 2017 | [here](https://docs.google.com/presentation/d/1hQwHTJy2HLaGGJEI4x1VRsY-9tS_JCP3tLftBFrJWTM/edit?usp=sharing) | - |
+| Building a Neural Net with Go | [Chicago Go Meetup](https://www.meetup.com/Chicago-Gophers/events/243370708/) | 17 October 2017 | [here](https://docs.google.com/presentation/d/14yCrcYSx-6-15ehHHUEGzp-fVQeCyPLkRghRt7LYhP8/edit?usp=sharing) | - |
 | Ultimate Data Workshop | [GopherCon](https://gophercon.com/) | 12-15 July 2017 | [here](https://github.com/ardanlabs/gotraining/tree/master/topics/courses/data) | - |
 | Sustainable Machine Learning Workflows | [UofSF Analytics Seminar Series](https://www.meetup.com/USF-Seminar-Series-in-Analytics/events/238276378/) | 23 June 2017 | [here](https://docs.google.com/presentation/d/1jsRAoGlgWBu2ws7ES49NI4447b2TB0rwexqhH21LQak/edit?usp=sharing) | - |
 | Integrating Julia in real-world, distributed pipelines | [JuliaCon](http://juliacon.org/2018/) | 20-24 June 2017 | [here](https://docs.google.com/presentation/d/1g5pZ06z0Mxa1BNUl57pKnsi1Wk8kjT-yb6o7JvJ1wAA/edit?usp=sharing) | [here](https://youtu.be/UIRuGUNXCt4) |
